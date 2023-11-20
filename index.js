@@ -52,7 +52,7 @@ function handleClick() {
           primeraImagen.classList.remove("voltear");
 
           primeraCarta.querySelector("#perros").style.display = "none";
-          h1.style.display = "none"; 
+          h1.style.display = "none";
 
           bloquearClics = false;
         } else {
@@ -69,12 +69,20 @@ function handleClick() {
 
           bloquearClics = false;
           primeraCarta = null;
+
+          // Verifica si todas las coincidencias se encontraron
+          const cartasEncontradas =
+            document.querySelectorAll(".cartas.encontrada");
+          if (cartasEncontradas.length === cartas.length) {
+            setTimeout(() => {
+              alert("¡Ganaste! Todas las coincidencias encontradas.");
+            }, 200);
+          }
         }, 500);
       }, 500);
     }, 1000);
   }
 }
-
 
 const boton = document.querySelector("#reinicio");
 boton.addEventListener("click", reiniciarJuego);
@@ -103,4 +111,12 @@ function reiniciarJuego() {
       carta.classList.remove("voltear");
     });
   }, 500);
+  mezclarCartas();
+}
+
+function mezclarCartas() {
+  cartas.forEach((carta) => {
+    const randomPos = Math.floor(Math.random() * cartas.length);
+    carta.style.order = randomPos;
+  });
 }
